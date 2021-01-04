@@ -35,9 +35,11 @@ public class TemporalApplication {
     }
 }
 
+// NoTime4JokesApp
+
 @RestController
 @AllArgsConstructor
-class FunnyController {
+class JokeController {
 
     JokeRepository jokeRepository;
     ReactionRepository reactionRepository;
@@ -45,13 +47,12 @@ class FunnyController {
 
     @PostMapping("/joke/{id}/reaction")
     void reaction(@PathVariable Long id, @RequestBody ReactionDto request) {
-        jokeRepository.findById(id).map(joke -> {
-            Reaction reaction = new Reaction();
-            reaction.setDate(request.getDate());
-            reaction.setReaction(request.getReaction());
-            reaction.setJoke(joke);
-            return reaction;
-        }).ifPresent(reactionRepository::save);
+        jokeRepository.findById(id)
+                .map(joke -> new Reaction()
+                        .setDate(request.getDate())
+                        .setReaction(request.getReaction())
+                        .setJoke(joke))
+                .ifPresent(reactionRepository::save);
     }
 
     @GetMapping("/joke/{id}/reaction")
@@ -75,7 +76,7 @@ class FunnyController {
     void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
         jokeRepository.findById(id)
                 .flatMap(joke -> comedianRepository.findByName(request.getName())
-                        .map(comedian -> joke.setOwner(comedian)))
+                        .map(joke::setOwner))
                 .ifPresent(jokeRepository::save);
     }
 
@@ -177,5 +178,3 @@ interface ComedianRepository extends JpaRepository<Comedian, Long> {
 
     Optional<Comedian> findByName(String name);
 }
-
-// using integers for hibernate IDs
