@@ -1,22 +1,25 @@
 package com.evojam.temporal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
+import lombok.experimental.Accessors;
 import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -32,28 +35,81 @@ public class TemporalApplication {
     }
 }
 
-
 @RestController
-@Value
-class TemporalController {
+@AllArgsConstructor
+class FunnyController {
 
-    JokeRepository jokeRepo;
-    ReactionRepository reactionRepo;
-
-    @GetMapping("/jokes")
-    Iterable<Joke> jokes() {
-        return jokeRepo.findAll();
-    }
+    JokeRepository jokeRepository;
+    ReactionRepository reactionRepository;
+    ComedianRepository comedianRepository;
 
     @PostMapping("/joke/{id}/reaction")
-        // TODO: make more readable?
-    void reactions(@PathVariable Long id, Reaction reaction) {
-        jokeRepo.findById(id)
-                .ifPresent(joke -> {
-                    reaction.setJoke(joke);
-                    reactionRepo.save(reaction);
-                });
+    void reaction(@PathVariable Long id, @RequestBody ReactionDto request) {
+        jokeRepository.findById(id).map(joke -> {
+            Reaction reaction = new Reaction();
+            reaction.setDate(request.getDate());
+            reaction.setReaction(request.getReaction());
+            reaction.setJoke(joke);
+            return reaction;
+        }).ifPresent(reactionRepository::save);
     }
+
+    @GetMapping("/joke/{id}/reaction")
+    List<ReactionDto> reactions(@PathVariable Long id) {
+        return reactionRepository.findAllByJokeIdOrderByDate(id);
+    }
+
+    @DeleteMapping("/comedian/{id}")
+    void retire(@PathVariable Long id) {
+        // jokeRepository.findByOwnerId(id).forEach(joke -> {
+        //     joke.setOwner(null);
+        //     jokeRepository.save(joke);
+        // });
+        comedianRepository.findById(id)
+                .map(Comedian::retire)
+                // .ifPresent(comedianRepository::delete);
+                .ifPresent(comedianRepository::save);
+    }
+
+    @PutMapping("/joke/{id}/owner")
+    void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
+        jokeRepository.findById(id)
+                .flatMap(joke -> comedianRepository.findByName(request.getName())
+                        .map(comedian -> joke.setOwner(comedian)))
+                .ifPresent(jokeRepository::save);
+    }
+
+    @PatchMapping("/joke/{id}")
+    void rephrase(@PathVariable Long id, @RequestBody RephraseDto request) {
+        jokeRepository.findById(id)
+                .map(joke -> joke.setQuestion(request.getQuestion()))
+                .ifPresent(jokeRepository::save);
+    }
+}
+
+@Value
+@JsonInclude(JsonInclude.Include.NON_NULL)
+class ReactionDto {
+
+    String jokeOwnerName;
+    LocalDate jokeOwnerRetired;
+    String jokeQuestion;
+    LocalDate date;
+    Integer reaction;
+}
+
+@Value
+class AssignmentDto {
+
+    LocalDate since;
+    String name;
+}
+
+@Value
+class RephraseDto {
+
+    LocalDate since;
+    String question;
 }
 
 @Data
@@ -62,59 +118,64 @@ class Comedian {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     Long id;
 
     String name;
 
-    @OneToMany(mappedBy = "ownerId")
-    Collection<Joke> jokes;
+    LocalDate retired;
+
+    Comedian retire() {
+        this.retired = LocalDate.now();
+        return this;
+    }
 }
 
 @Data
 @Entity
+@Accessors(chain = true)
 class Joke {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     Long id;
 
-    @JsonIgnore
-    Long ownerId;
+    @ManyToOne
+    Comedian owner;
 
     String title;
-
-    String text;
+    String question;
+    String answer;
 }
 
 @Data
 @Entity
+@Accessors(chain = true)
 class Reaction {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     Long id;
 
     @ManyToOne
     Joke joke;
 
-    Integer oneToTen;
+    LocalDate date;
+
+    Integer reaction;
 }
 
-@Repository
-interface JokeRepository extends JpaRepository<Joke, Long> {
-}
-
-
-@Repository
 interface ReactionRepository extends JpaRepository<Reaction, Long> {
+
+    List<ReactionDto> findAllByJokeIdOrderByDate(Long id);
 }
 
+interface JokeRepository extends JpaRepository<Joke, Long> {
+    List<Joke> findByOwnerId(Long id);
+}
 
-// TODO: D in CRUD - delete
+interface ComedianRepository extends JpaRepository<Comedian, Long> {
 
-// TODO: U in CRUD
-//  - update joke
-//  - reassign joke
+    Optional<Comedian> findByName(String name);
+}
+
+// using integers for hibernate IDs

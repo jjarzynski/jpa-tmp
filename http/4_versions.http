@@ -1,0 +1,64 @@
+
+###
+
+POST localhost:8080/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2020-12-31",
+  "reaction": 4
+}
+
+###
+
+POST localhost:8080/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-01-06",
+  "reaction": 4
+}
+
+###
+
+PATCH localhost:8080/joke/3
+Content-Type: application/json
+
+{
+  "since": "2020-01-13",
+  "question": "Co fryzjerka ma na pizzy?"
+}
+
+###
+
+POST localhost:8080/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-02-07",
+  "reaction": 8
+}
+
+###
+
+POST localhost:8080/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-02-12",
+  "reaction": 9
+}
+
+###
+
+POST localhost:8080/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-03-01",
+  "reaction": 8
+}
+
+###
+
+GET localhost:8080/joke/3/reaction
