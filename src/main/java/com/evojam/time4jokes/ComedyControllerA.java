@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/a")
 @AllArgsConstructor
 class ComedyControllerA {
 
@@ -18,7 +17,7 @@ class ComedyControllerA {
     ComedianRepository comedianRepository;
     OwnerRepository ownerRepository;
 
-    @PostMapping("/joke/{id}/reaction")
+    @PostMapping("/v1/joke/{id}/reaction")
     void reaction(@PathVariable Long id, @RequestBody ReactionDto request) {
         jokeRepository.findById(id)
                 .map(joke -> new Reaction()
@@ -28,12 +27,12 @@ class ComedyControllerA {
                 .ifPresent(reactionRepository::save);
     }
 
-    @GetMapping("/joke/{id}/reaction")
+    @GetMapping("/v1/joke/{id}/reaction")
     List<ReactionDto> reactions(@PathVariable Long id) {
         return reactionRepository.findAllByJokeIdOrderByDate(id);
     }
 
-    @DeleteMapping("/comedian/{id}")
+    @DeleteMapping("/v1/comedian/{id}")
     void retire(@PathVariable Long id) {
         jokeRepository.findByOwnerId(id).forEach(joke -> {
             joke.setOwner(null);
@@ -43,7 +42,7 @@ class ComedyControllerA {
                 .ifPresent(comedianRepository::delete);
     }
 
-    @PutMapping("/joke/{id}/owner")
+    @PutMapping("/v1/joke/{id}/owner")
     void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
         Comedian comedian = comedianRepository.findByName(request.getName());
 
@@ -55,7 +54,7 @@ class ComedyControllerA {
                 .ifPresent(jokeRepository::save);
     }
 
-    @PatchMapping("/joke/{id}")
+    @PatchMapping("/v1/joke/{id}")
     void rephrase(@PathVariable Long id, @RequestBody RephraseDto request) {
         jokeRepository.findById(id)
                 .map(joke -> joke.setQuestion(request.getQuestion()))

@@ -12,12 +12,11 @@ VALUES (1, 'Julia'),
 --
 --
 
-INSERT INTO JOKE (id, owner_id, title, question, answer)
-VALUES (1, 1, 'Łyżka', 'Co ma wspólnego łyżka z jesienią?', 'Je się nią'),
-       (2, 2, 'Mechanik', 'Ile zarabia mechanik?', null),
-       (3, 3, 'Fryzjerka', 'Co fryzjerka ma w lodówce?', null),
-       (4, 4, 'Magik', 'Gdy magik stracił pracę, jak się poczuł?', null),
-       (5, 5, 'Wojna', 'Co na wojnie nigdy się nie psuje?', null)
+INSERT INTO JOKE (id, owner_id, question, answer)
+VALUES (1, 1, 'Co ma wspólnego łyżka z jesienią?', '- Je się nią'),
+       (2, 2, 'Co na wojnie nigdy się nie psuje?', '- Działa'),
+       (3, 3, 'Co fryzjerka ma w lodówce?', '- Ma szynkę'),
+       (4, 4, 'Jak się czuje magik w 2020?', '- Rozczarowany')
 ;
 
 --

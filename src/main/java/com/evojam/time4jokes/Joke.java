@@ -22,7 +22,6 @@ class Joke {
     @ManyToOne
     Comedian owner;
 
-    String title;
     String question;
     String answer;
 }

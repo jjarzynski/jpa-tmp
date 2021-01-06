@@ -1,7 +1,7 @@
 
 ###
 
-POST localhost:8080/a/joke/4/reaction
+POST localhost:8080/v1/joke/4/reaction
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 
-POST localhost:8080/a/joke/4/reaction
+POST localhost:8080/v1/joke/4/reaction
 Content-Type: application/json
 
 {
@@ -26,12 +26,12 @@ Content-Type: application/json
 
 {
   "since": "2020-01-13",
-  "question": "Co fryzjerka ma na pizzy?"
+  "question": "Jaki jest magik po słabym występie?"
 }
 
 ###
 
-POST localhost:8080/a/joke/4/reaction
+POST localhost:8080/v1/joke/4/reaction
 Content-Type: application/json
 
 {
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 ###
 
-POST localhost:8080/a/joke/4/reaction
+POST localhost:8080/v1/joke/4/reaction
 Content-Type: application/json
 
 {
@@ -51,7 +51,7 @@ Content-Type: application/json
 
 ###
 
-POST localhost:8080/a/joke/4/reaction
+POST localhost:8080/v1/joke/4/reaction
 Content-Type: application/json
 
 {

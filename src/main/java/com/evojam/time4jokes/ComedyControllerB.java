@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/b")
 @AllArgsConstructor
 class ComedyControllerB {
 
@@ -15,13 +14,13 @@ class ComedyControllerB {
     ComedianRepository comedianRepository;
     OwnerRepository ownerRepository;
 
-    @GetMapping("/joke/{id}/reaction")
+    @GetMapping("/v2/joke/{id}/reaction")
     List<ReactionDto> reactions(@PathVariable Long id) {
 
         return reactionRepository.findByJokeIdWithOwnerAtTheTime(id);
     }
 
-    @DeleteMapping("/comedian/{id}")
+    @DeleteMapping("/v2/comedian/{id}")
     void retire(@PathVariable Long id) {
 
         // comedianRepository.findById(id)
@@ -30,7 +29,7 @@ class ComedyControllerB {
         // TODO
     }
 
-    @PutMapping("/joke/{id}/owner")
+    @PutMapping("/v2/joke/{id}/owner")
     void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
 
         JokeOwner current = ownerRepository.findByJokeIdAndUntilIsNull(id);
@@ -41,7 +40,7 @@ class ComedyControllerB {
         // TODO
     }
 
-    @PatchMapping("/joke/{id}")
+    @PatchMapping("/v2/joke/{id}")
     void rephrase(@PathVariable Long id, @RequestBody RephraseDto request) {
         // jokeRepository.findById(id)
         //         .map(joke -> joke.setQuestion(request.getQuestion()))
