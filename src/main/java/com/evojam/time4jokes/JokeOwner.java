@@ -1,15 +1,15 @@
 package com.evojam.time4jokes;
 
 import lombok.Data;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.stream.Stream;
 
 @Data
-@Entity
-@SequenceGenerator(name = "owner_id", sequenceName = "owner_seq", allocationSize = 1)
+// @Entity
+// @SequenceGenerator(name = "owner_id", sequenceName = "owner_seq", allocationSize = 1)
 class JokeOwner {
 
     @Id
@@ -26,20 +26,24 @@ class JokeOwner {
 
     LocalDate until;
 
-    Stream<JokeOwner> reassign(Comedian candidate, LocalDate since) {
-        this.until = since;
-
-        JokeOwner next = new JokeOwner();
-        next.setSince(since);
-        this.joke.setOwner(candidate);
-        next.setJoke(this.joke);
-        next.setComedian(candidate);
-
-        return Stream.of(this, next);
-    }
+    // Stream<JokeOwner> reassign(Comedian candidate, LocalDate since) {
+    //     this.until = since;
+    //
+    //     JokeOwner next = new JokeOwner();
+    //     next.setSince(since);
+    //     this.joke.setOwner(candidate);
+    //     next.setJoke(this.joke);
+    //     next.setComedian(candidate);
+    //
+    //     return Stream.of(this, next);
+    // }
+    //
+    // TODO
 }
 
-interface OwnerRepository extends JpaRepository<JokeOwner, Long> {
-
-    JokeOwner findByJokeIdAndUntilIsNull(Long id);
-}
+// interface OwnerRepository extends JpaRepository<JokeOwner, Long> {
+//
+//     JokeOwner findByJokeIdAndUntilIsNull(Long id);
+// }
+//
+// TODO

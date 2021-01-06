@@ -4,20 +4,16 @@
 POST localhost:8080/v1/joke/2/reaction
 Content-Type: application/json
 
-{
-  "date": "2020-12-31",
-  "reaction": 9
-}
-
-###
-
-POST localhost:8080/v1/joke/2/reaction
-Content-Type: application/json
-
-{
-  "date": "2021-01-06",
-  "reaction": 8
-}
+[
+  {
+    "date": "2020-12-31",
+    "reaction": 9
+  },
+  {
+    "date": "2021-01-06",
+    "reaction": 8
+  }
+]
 
 ###
 

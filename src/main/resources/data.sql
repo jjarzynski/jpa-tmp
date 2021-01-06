@@ -21,6 +21,31 @@ VALUES (1, 1, 'Co ma wspólnego łyżka z jesienią?', '- Je się nią'),
 
 --
 --
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
 
 -- INSERT INTO JOKE_OWNER (id, comedian_id, joke_id, since, until)
 -- VALUES (OWNER_SEQ.nextval, 1, 1, '2020-12-31', null),

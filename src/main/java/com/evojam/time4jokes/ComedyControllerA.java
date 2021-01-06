@@ -15,16 +15,17 @@ class ComedyControllerA {
     JokeRepository jokeRepository;
     ReactionRepository reactionRepository;
     ComedianRepository comedianRepository;
-    OwnerRepository ownerRepository;
 
     @PostMapping("/v1/joke/{id}/reaction")
-    void reaction(@PathVariable Long id, @RequestBody ReactionDto request) {
-        jokeRepository.findById(id)
-                .map(joke -> new Reaction()
-                        .setDate(request.getDate())
-                        .setReaction(request.getReaction())
-                        .setJoke(joke))
-                .ifPresent(reactionRepository::save);
+    void reaction(@PathVariable Long id, @RequestBody List<ReactionDto> request) {
+        jokeRepository.findById(id).ifPresent(joke ->
+        request.stream()
+                .map(item -> new Reaction()
+                        .setDate(item.getDate())
+                        .setReaction(item.getReaction())
+                        .setJoke(joke)
+                )
+                .forEach(reactionRepository::save));
     }
 
     @GetMapping("/v1/joke/{id}/reaction")
@@ -69,13 +70,13 @@ class RephraseDto {
     String question;
 }
 
-
 @Value
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class ReactionDto {
 
     String jokeOwnerName;
-    LocalDate jokeOwnerRetired;
+    // LocalDate jokeOwnerRetired;
+    // TODO
     String jokeQuestion;
     String jokeAnswer;
     LocalDate date;

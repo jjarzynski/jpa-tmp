@@ -3,6 +3,7 @@ package com.evojam.time4jokes;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -12,12 +13,15 @@ class ComedyControllerB {
     JokeRepository jokeRepository;
     ReactionRepository reactionRepository;
     ComedianRepository comedianRepository;
-    OwnerRepository ownerRepository;
+    // OwnerRepository ownerRepository;
+    // TODO
 
     @GetMapping("/v2/joke/{id}/reaction")
     List<ReactionDto> reactions(@PathVariable Long id) {
 
-        return reactionRepository.findByJokeIdWithOwnerAtTheTime(id);
+        // return reactionRepository.findByJokeIdWithOwnerAtTheTime(id);
+        // TODO
+        return Collections.emptyList();
     }
 
     @DeleteMapping("/v2/comedian/{id}")
@@ -32,9 +36,9 @@ class ComedyControllerB {
     @PutMapping("/v2/joke/{id}/owner")
     void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
 
-        JokeOwner current = ownerRepository.findByJokeIdAndUntilIsNull(id);
-        Comedian comedian = comedianRepository.findByName(request.getName());
-
+        // JokeOwner current = ownerRepository.findByJokeIdAndUntilIsNull(id);
+        // Comedian comedian = comedianRepository.findByName(request.getName());
+        //
         // current.reassign(comedian, request.getSince())
         //         .forEach(ownerRepository::save);
         // TODO
