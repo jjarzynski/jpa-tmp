@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.evojam</groupId>
-	<artifactId>temporal</artifactId>
+	<artifactId>time4jokes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>temporal</name>
+	<name>time4jokes</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

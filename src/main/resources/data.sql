@@ -1,7 +1,7 @@
 --
 --
 
-INSERT INTO comedian (id, name)
+INSERT INTO COMEDIAN (id, name)
 VALUES (1, 'Julia'),
        (2, 'Zuzanna'),
        (3, 'Antoni'),
@@ -12,14 +12,24 @@ VALUES (1, 'Julia'),
 --
 --
 
-INSERT INTO joke (id, owner_id, question, title)
-VALUES (1, 1, 'Co ma wspólnego łyżka z jesienią?', 'Łyżka'),
-       (2, 2, 'Ile zarabia mechanik?', 'Mechanik'),
-       (3, 3, 'Co fryzjerka ma w lodówce?', 'Fryzjerka'),
-       (4, 4, 'Gdy magik stracił pracę, jak się poczuł?', 'Magik'),
-       (5, 5, 'Co na wojnie nigdy się nie psuje?', 'Wojna')
+INSERT INTO JOKE (id, owner_id, title, question, answer)
+VALUES (1, 1, 'Łyżka', 'Co ma wspólnego łyżka z jesienią?', 'Je się nią'),
+       (2, 2, 'Mechanik', 'Ile zarabia mechanik?', null),
+       (3, 3, 'Fryzjerka', 'Co fryzjerka ma w lodówce?', null),
+       (4, 4, 'Magik', 'Gdy magik stracił pracę, jak się poczuł?', null),
+       (5, 5, 'Wojna', 'Co na wojnie nigdy się nie psuje?', null)
 ;
 
+--
+--
+
+-- INSERT INTO JOKE_OWNER (id, comedian_id, joke_id, since, until)
+-- VALUES (OWNER_SEQ.nextval, 1, 1, '2020-12-31', null),
+--        (OWNER_SEQ.nextval, 2, 2, '2020-12-31', null),
+--        (OWNER_SEQ.nextval, 3, 3, '2020-12-31', null),
+--        (OWNER_SEQ.nextval, 4, 4, '2020-12-31', null),
+--        (OWNER_SEQ.nextval, 5, 5, '2020-12-31', null)
+-- ;
 
 --
 --
@@ -78,5 +88,9 @@ VALUES (1, 1, 'Co ma wspólnego łyżka z jesienią?', 'Łyżka'),
 --
 --
 --
-SELECT 1
-FROM INFORMATION_SCHEMA.HELP;
+--
+--
+-- SELECT 1
+-- FROM INFORMATION_SCHEMA.HELP;
+--
+--

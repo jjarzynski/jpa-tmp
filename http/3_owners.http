@@ -1,68 +1,64 @@
 
 ###
 
-POST localhost:8080/joke/1/reaction
+POST localhost:8080/a/joke/3/reaction
 Content-Type: application/json
 
 {
   "date": "2020-12-31",
-  "reaction": 9
-}
-
-###
-
-POST localhost:8080/joke/1/reaction
-Content-Type: application/json
-
-{
-  "date": "2021-01-06",
-  "reaction": 8
-}
-
-###
-
-DELETE localhost:8080/comedian/1
-
-###
-
-PUT localhost:8080/joke/1/owner
-Content-Type: application/json
-
-{
-  "since": "2021-01-12",
-  "name": "Antoni"
-}
-
-###
-
-POST localhost:8080/joke/1/reaction
-Content-Type: application/json
-
-{
-  "date": "2021-02-07",
-  "reaction": 3
-}
-
-###
-
-POST localhost:8080/joke/1/reaction
-Content-Type: application/json
-
-{
-  "date": "2021-02-12",
-  "reaction": 4
-}
-
-###
-
-POST localhost:8080/joke/1/reaction
-Content-Type: application/json
-
-{
-  "date": "2021-03-01",
   "reaction": 2
 }
 
 ###
 
-GET localhost:8080/joke/1/reaction
+POST localhost:8080/a/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-01-06",
+  "reaction": 1
+}
+
+###
+
+PUT localhost:8080/{{v}}/joke/3/owner
+Content-Type: application/json
+
+{
+  "since": "2021-01-12",
+  "name": "Zuzanna"
+}
+
+###
+
+POST localhost:8080/a/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-02-07",
+  "reaction": 7
+}
+
+###
+
+POST localhost:8080/a/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-02-12",
+  "reaction": 9
+}
+
+###
+
+POST localhost:8080/a/joke/3/reaction
+Content-Type: application/json
+
+{
+  "date": "2021-03-01",
+  "reaction": 8
+}
+
+###
+
+GET localhost:8080/{{v}}/joke/3/reaction
