@@ -1,5 +1,5 @@
 
-###
+### 2.1 - Record reactions to joke #2
 
 POST localhost:8080/v1/joke/2/reaction
 Content-Type: application/json
@@ -15,10 +15,10 @@ Content-Type: application/json
   }
 ]
 
-###
+### 2.2 - Retire comedian #2
 
 DELETE localhost:8080/{{v}}/comedian/2
 
-###
+### 2.3 - View historical reactions to joke #2
 
 GET localhost:8080/v1/joke/2/reaction

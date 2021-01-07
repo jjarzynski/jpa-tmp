@@ -11,6 +11,18 @@ VALUES (1, 'Julia'),
 
 --
 --
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
 
 INSERT INTO JOKE (id, owner_id, question, answer)
 VALUES (1, 1, 'Co ma wspólnego łyżka z jesienią?', '- Je się nią'),

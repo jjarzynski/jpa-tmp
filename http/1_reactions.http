@@ -1,5 +1,5 @@
 
-###
+### 1.1 - Record reactions to joke #1
 
 POST localhost:8080/v1/joke/1/reaction
 Content-Type: application/json
@@ -19,6 +19,6 @@ Content-Type: application/json
   }
 ]
 
-###
+### 1.2 - View historical reactions to joke #1
 
 GET localhost:8080/v1/joke/1/reaction

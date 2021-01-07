@@ -20,5 +20,3 @@ public class Time4JokesApp {
         return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
     }
 }
-
-// print sql
