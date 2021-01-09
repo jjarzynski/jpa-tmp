@@ -26,45 +26,8 @@ class Joke {
     String answer;
 }
 
-// @Data
-// @Entity
-// @SequenceGenerator(
-//         name = "joke_version_id",
-//         sequenceName = "joke_version_seq",
-//         allocationSize = 1
-// )
-// class JokeVersion {
-//
-//     @Id
-//     @GeneratedValue(generator = "joke_version_id")
-//     Long id;
-//
-//     @ManyToOne
-//     Joke joke;
-//
-//     String question;
-//
-//     LocalDate since;
-//     LocalDate until;
-//
-//     Stream<JokeVersion> change(String question, LocalDate since) {
-//         this.setUntil(since);
-//
-//         JokeVersion next = new JokeVersion();
-//         next.setJoke(this.joke);
-//         next.setQuestion(question);
-//         next.setSince(since);
-//
-//         return Stream.of(this, next);
-//     }
-// }
-
 interface JokeRepository extends JpaRepository<Joke, Long> {
 
     List<Joke> findByOwnerId(Long id);
 }
 
-// interface JokeVersionRepository extends JpaRepository<JokeVersion, Long> {
-//
-//     JokeVersion findByJokeIdAndUntilIsNull(Long id);
-// }
