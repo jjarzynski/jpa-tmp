@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
 @Data
 @Entity
@@ -18,14 +17,12 @@ class Comedian {
 
     String name;
 
-    LocalDate retired;
-
+    // LocalDate retired;
+    //
     // Comedian retire() {
     //     this.retired = LocalDate.now();
     //     return this;
     // }
-    //
-    // TODO
 }
 
 interface ComedianRepository extends JpaRepository<Comedian, Long> {

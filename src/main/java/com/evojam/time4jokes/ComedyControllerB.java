@@ -3,6 +3,7 @@ package com.evojam.time4jokes;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -13,20 +14,16 @@ class ComedyControllerB {
     ReactionRepository reactionRepository;
     ComedianRepository comedianRepository;
     // OwnerRepository ownerRepository;
-    JokeVersionRepository versionRepository;
-    // TODO
+    // JokeVersionRepository versionRepository;
 
     @GetMapping("/v2/joke/{id}/reaction")
     List<ReactionDto> reactions(@PathVariable Long id) {
-
-        return reactionRepository.findByJokeIdWithOwnerAtTheTime(id);
-        // TODO
-        // return Collections.emptyList();
+        // return reactionRepository.findByJokeIdWithOwnerAtTheTime(id);
+        return Collections.emptyList(); // TODO
     }
 
     @DeleteMapping("/v2/comedian/{id}")
     void retire(@PathVariable Long id) {
-
         // comedianRepository.findById(id)
         //         .map(Comedian::retire)
         //         .ifPresent(comedianRepository::save);
@@ -34,7 +31,7 @@ class ComedyControllerB {
     }
 
     @PutMapping("/v2/joke/{id}/owner")
-    void assign(@PathVariable Long id, @RequestBody AssignmentDto request) {
+    void reassign(@PathVariable Long id, @RequestBody AssignmentDto request) {
 
         // JokeOwner current = ownerRepository.findByJokeIdAndUntilIsNull(id);
         // Comedian comedian = comedianRepository.findByName(request.getName());
@@ -50,9 +47,9 @@ class ComedyControllerB {
                 .map(joke -> joke.setQuestion(request.getQuestion()))
                 .ifPresent(jokeRepository::save);
 
-        JokeVersion current = versionRepository.findByJokeIdAndUntilIsNull(id);
-        current.change(request.getQuestion(), request.getSince())
-                .forEach(versionRepository::save);
+        // JokeVersion current = versionRepository.findByJokeIdAndUntilIsNull(id);
+        // current.change(request.getQuestion(), request.getSince())
+        //         .forEach(versionRepository::save);
         // TODO
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.sql.SQLException;
 
-
 @SpringBootApplication
 public class Time4JokesApp {
 
