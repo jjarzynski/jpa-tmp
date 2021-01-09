@@ -2,14 +2,12 @@ package com.evojam.time4jokes;
 
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
-// @Entity
-// @SequenceGenerator(name = "owner_id", sequenceName = "owner_seq", allocationSize = 1)
+@Entity
+@SequenceGenerator(name = "owner_id", sequenceName = "owner_seq", allocationSize = 1)
 class JokeOwner {
 
     @Id

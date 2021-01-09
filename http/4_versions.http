@@ -21,7 +21,7 @@ PATCH localhost:8080/{{v}}/joke/4
 Content-Type: application/json
 
 {
-  "since": "2020-01-13",
+  "since": "2021-01-13",
   "question": "Jaki jest magik po słabym występie?"
 }
 
