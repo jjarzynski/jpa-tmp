@@ -3,6 +3,7 @@ package com.evojam.time4jokes;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,67 +32,39 @@ class Reaction {
 
 interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
-     // @Query("SELECT new com.evojam.time4jokes.ReactionDto(" +
-     //         "   comedian.name," +
-     //         // "   comedian.retired," +
-     //         "   joke.question," +
-     //         "   joke.answer," +
-     //         "   reaction.date," +
-     //         "   reaction.reaction" +
-     //         ")" +
-     //
-     //         " FROM Reaction reaction" +
-     //
-     //         " JOIN reaction.joke joke" +
-     //
-     //         " JOIN JokeOwner owner" +
-     //         " ON reaction.joke.id = owner.joke.id" +
-     //         " AND reaction.date >= owner.since" +
-     //         " AND (" +
-     //         "   owner.until IS NULL" +
-     //         "   OR reaction.date < owner.until" +
-     //         " )" +
-     //
-     //         " JOIN owner.comedian comedian" +
-     //
-     //         " WHERE owner.joke.id = :id" +
-     //         " ORDER BY reaction.date")
-     // List<ReactionDto> findByJokeIdWithOwnerAtTheTime(Long id);
-
-    // @Query("SELECT new com.evojam.time4jokes.ReactionDto(" +
-    //         "   comedian.name," +
-    //         "   comedian.retired," +
-    //         "   version.question," +
-    //         "   joke.answer," +
-    //         "   reaction.date," +
-    //         "   reaction.reaction" +
-    //         ")" +
-    //
-    //         " FROM Reaction reaction" +
-    //
-    //         " JOIN reaction.joke joke" +
-    //
-    //         " JOIN JokeOwner owner" +
-    //         " ON reaction.joke.id = owner.joke.id" +
-    //         " AND reaction.date >= owner.since" +
-    //         " AND (" +
-    //         "   owner.until IS NULL" +
-    //         "   OR reaction.date < owner.until" +
-    //         " )" +
-    //
-    //         " JOIN owner.comedian comedian" +
-    //
-    //         " JOIN JokeVersion version" +
-    //         " ON reaction.joke.id = version.joke.id" +
-    //         " AND reaction.date >= version.since" +
-    //         " AND (" +
-    //         "   version.until IS NULL" +
-    //         "   OR reaction.date < version.until" +
-    //         " )" +
-    //
-    //         " WHERE owner.joke.id = :id" +
-    //         " ORDER BY reaction.date")
-    // List<ReactionDto> findByJokeIdWithOwnerAndQuestionAtTheTime(Long id);
-
     List<ReactionDto> findAllByJokeIdOrderByDate(Long id);
+
+    // TODO
+
+    @Query("select new com.evojam.time4jokes.ReactionDto(" +
+            "   comedian.name," +
+            "   comedian.retired," +
+            "   version.question," +
+            "   joke.answer," +
+            "   reaction.date," +
+            "   reaction.reaction" +
+            ")" +
+
+            " from Reaction reaction" +
+            " join reaction.joke joke" +
+
+            " join JokeOwner owner" +
+            " on owner.joke = joke" +
+            " and reaction.date >= owner.since" +
+            " and (" +
+            "   reaction.date < owner.until" +
+            "   or owner.until is null" +
+            ")" +
+
+            " join JokeVersion version" +
+            " on version.joke = joke" +
+            " and reaction.date >= version.since" +
+            " and (" +
+            "   reaction.date < version.until" +
+            "   or version.until is null" +
+            ")" +
+
+            "join owner.comedian comedian"
+    )
+    List<ReactionDto> findByJokeIdWithOwnerAtTheTime(Long id);
 }
