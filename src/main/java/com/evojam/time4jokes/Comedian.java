@@ -17,15 +17,6 @@ class Comedian {
     Long id;
 
     String name;
-
-    // TODO
-    private LocalDate retired;
-
-    // TODO
-    Comedian retire() {
-        this.retired = LocalDate.now();
-        return this;
-    }
 }
 
 interface ComedianRepository extends JpaRepository<Comedian, Long> {

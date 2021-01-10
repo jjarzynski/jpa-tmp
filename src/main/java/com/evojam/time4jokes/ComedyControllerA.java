@@ -75,8 +75,6 @@ class RephraseDto {
 class ReactionDto {
 
     String jokeOwnerName;
-    // TODO
-    LocalDate jokeOwnerRetired;
     String jokeQuestion;
     String jokeAnswer;
     LocalDate date;

@@ -33,38 +33,4 @@ class Reaction {
 interface ReactionRepository extends JpaRepository<Reaction, Long> {
 
     List<ReactionDto> findAllByJokeIdOrderByDate(Long id);
-
-    // TODO
-
-    @Query("select new com.evojam.time4jokes.ReactionDto(" +
-            "   comedian.name," +
-            "   comedian.retired," +
-            "   version.question," +
-            "   joke.answer," +
-            "   reaction.date," +
-            "   reaction.reaction" +
-            ")" +
-
-            " from Reaction reaction" +
-            " join reaction.joke joke" +
-
-            " join JokeOwner owner" +
-            " on owner.joke = joke" +
-            " and reaction.date >= owner.since" +
-            " and (" +
-            "   reaction.date < owner.until" +
-            "   or owner.until is null" +
-            ")" +
-
-            " join JokeVersion version" +
-            " on version.joke = joke" +
-            " and reaction.date >= version.since" +
-            " and (" +
-            "   reaction.date < version.until" +
-            "   or version.until is null" +
-            ")" +
-
-            "join owner.comedian comedian"
-    )
-    List<ReactionDto> findByJokeIdWithOwnerAtTheTime(Long id);
 }
